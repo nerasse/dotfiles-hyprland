@@ -89,3 +89,11 @@
 !.config/vesktop/settings.json
 !.config/vesktop/settings/
 !.config/vesktop/settings/settings.json
+
+
+
+
+
+# git-ressources
+!git-ressources/
+!git-ressources/**
