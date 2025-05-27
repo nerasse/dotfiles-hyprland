@@ -97,3 +97,5 @@
 # git-ressources
 !git-ressources/
 !git-ressources/**
+
+!README.md
