@@ -1,0 +1,9 @@
+
+# filepath: ~/.config/wofi/config
+style=/home/neras/.config/wofi/style.css
+width=800
+height=400
+prompt=Search
+term=kitty
+allow_images=true
+image_size=24

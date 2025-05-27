@@ -1,0 +1,14 @@
+[Unit]
+Description=Run random-wallpaper-swww.service every 15 minutes
+# S'assurer que la session graphique est prête
+Requires=graphical-session.target
+
+[Timer]
+# Attend 2 minutes après le démarrage (pour laisser le temps à swww init de bien se lancer)
+OnBootSec=2min
+# Puis toutes les 15 minutes
+OnUnitActiveSec=15min
+Unit=random-wallpaper-swww.service
+
+[Install]
+WantedBy=timers.target

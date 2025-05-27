@@ -1,0 +1,10 @@
+[Unit]
+Description=Change wallpaper periodically with swww
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/scripts/random_wallpaper_swww.sh
+
+[Install]
+WantedBy=default.target

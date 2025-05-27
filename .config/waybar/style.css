@@ -1,0 +1,453 @@
+/* Catppuccin Macchiato - Mauve Accent */
+@define-color rosewater #f4dbd6;
+@define-color flamingo #f0c6c6;
+@define-color pink #f5bde6;
+@define-color mauve #c6a0f6; /* Accent */
+@define-color red #ed8796;
+@define-color maroon #ee99a0;
+@define-color peach #f5a97f;
+@define-color yellow #eed49f;
+@define-color green #a6da95;
+@define-color teal #8bd5ca;
+@define-color sky #91d7e3;
+@define-color sapphire #7dc4e4;
+@define-color blue #8aadf4;
+@define-color lavender #b7bdf8;
+@define-color text #cad3f5;
+@define-color subtext1 #b8c0e0;
+@define-color subtext0 #a5adce;
+@define-color overlay2 #939ab7;
+@define-color overlay1 #8087a2;
+@define-color overlay0 #6e738d;
+@define-color surface2 #5b6078;
+@define-color surface1 #494d64;
+@define-color surface0 #363a4f;
+@define-color base #24273a;
+@define-color mantle #1e2030;
+@define-color crust #181926;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif;
+    font-size: 14px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar { /* Fond global de la barre Waybar */
+    background-color: transparent; /* Gardez ceci pour une barre transparente */
+    color: @text;
+    transition-duration: 0.5s;
+    transition-property: background-color;
+}
+
+window#waybar.hidden {
+    opacity: 0.3;
+}
+
+/* Style général pour les modules (SAUF #window si on veut un traitement spécial pour son fond) */
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#keyboard-state,
+#power-profiles-daemon,
+#custom-power { /* #window est RETIRÉ de cette liste pour son fond */
+    padding: 0 10px;
+    margin: 3px 3px;
+    color: @text;
+    background-color: alpha(@surface0, 0.9); /* MODIFIÉ ICI: Fond semi-transparent pour ces modules */
+    border-radius: 8px;
+}
+
+/* Style spécifique pour #window */
+#window {
+    color: @text; /* Votre couleur de texte principale */
+    font-style: italic;
+    padding: 0 10px;
+    margin: 3px 3px;
+    min-width: 0px;
+    background-color: transparent;
+    border-style: none;
+
+    text-shadow:
+        /* 1. Fine bordure avec la couleur @base, légèrement moins opaque (ex: 75%) */
+        -1px -1px 0 alpha(@base, 0.75),  1px -1px 0 alpha(@base, 0.75),
+        -1px  1px 0 alpha(@base, 0.75),  1px  1px 0 alpha(@base, 0.75),
+        -1px    0 0 alpha(@base, 0.75),  1px    0 0 alpha(@base, 0.75),
+         0   -1px 0 alpha(@base, 0.75),  0    1px 0 alpha(@base, 0.75),
+
+        /* 2. Première couche d'ombre @crust (version extrême précédente) */
+        0px 4px 8px alpha(@crust, 1),
+
+        /* 3. Deuxième couche d'ombre @crust (version extrême précédente) */
+        0px 0px 40px alpha(@crust, 0.9);
+
+    transition-property: color, text-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+#window:hover {
+    color: @mauve; /* Votre couleur de survol */
+}
+
+
+/* Style au survol pour la plupart des modules */
+#clock:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#temperature:hover,
+#backlight:hover,
+#network:hover,
+#pulseaudio:hover,
+#idle_inhibitor:hover,
+#keyboard-state:hover,
+#power-profiles-daemon:hover,
+#custom-power:hover {
+    background-color: alpha(@surface1, 0.95); /* Optionnel: rendre aussi le survol semi-transparent */
+    color: @mauve;
+}
+
+/* Workspaces styling */
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 2px 8px;
+    margin: 3px 3px;
+    background-color: alpha(@surface0, 0.9); /* MODIFIÉ ICI: comme les modules généraux */
+    color: @subtext0;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button:hover {
+    background-color: alpha(@surface1, 0.95); /* Optionnel: rendre aussi le survol semi-transparent */
+    color: @text;
+    box-shadow: inherit;
+}
+
+#workspaces button.active {
+    background-color: @mauve; /* Reste opaque pour un bon contraste */
+    color: @crust;
+}
+
+#workspaces button.urgent {
+    background-color: @red; /* Reste opaque */
+    color: @crust;
+}
+
+#clock {
+    background-color: alpha(@surface1, 0.9); /* MODIFIÉ: pour être cohérent avec la transparence générale */
+    color: @sky;
+}
+
+#battery {
+    background-color: alpha(@blue, 0.9);
+    color: @base;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#battery.good:not(.charging) {
+    background-color: alpha(@surface0, 0.9);
+    color: @sky;
+}
+
+#battery.warning:not(.charging) {
+    background-color: alpha(@peach, 0.9);
+    color: @base;
+}
+
+#battery.critical:not(.charging) {
+    background-color: alpha(@red, 0.9);
+    color: @base;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.charging {
+    background-color: alpha(@sky, 0.9);
+    color: @base;
+    animation-name: none;
+}
+
+#battery.full.charging {
+    background-color: alpha(@blue, 0.9);
+    color: @base;
+    animation-name: none;
+}
+
+/* --- HOVER ADAPTATIONS FOR BATTERY STATES --- */
+#battery.good:not(.charging):hover,
+#battery.warning:not(.charging):hover,
+#battery.charging:hover,
+#battery.full.charging:hover {
+    background-color: alpha(@surface1, 0.95);
+    color: @mauve;
+}
+
+#battery.critical:not(.charging):hover {
+    background-color: alpha(@surface1, 0.95);
+    color: @mauve;
+    animation-name: none; /* Stop blinking on hover */
+}
+/* Note: The general #battery:hover rule will cover the base #battery style hover */
+/* --- END HOVER ADAPTATIONS FOR BATTERY --- */
+
+
+@keyframes blink {
+    to {
+        background-color: @text;
+        color: @red;
+    }
+}
+
+
+#cpu {
+    background-color: alpha(@peach, 0.9);
+    color: @base;
+    padding-left: 8px;
+    padding-right: 14px;
+}
+
+#memory {
+    background-color: alpha(@yellow, 0.9);
+    color: @base;
+    padding-left: 8px;
+    padding-right: 16px;
+}
+
+#disk {
+    background-color: alpha(@teal, 0.9);
+    color: @base;
+    padding-left: 8px;
+    padding-right: 16px;
+}
+
+#disk.warning {
+    background-color: alpha(@yellow, 0.9);
+    color: @base;
+}
+
+#disk.critical {
+    background-color: alpha(@red, 0.9);
+    color: @base;
+}
+
+#temperature {
+    background-color: alpha(@maroon, 0.9);
+    color: @base;
+}
+#temperature.critical {
+    background-color: alpha(@red, 0.9);
+    color: @base;
+}
+
+#network {
+    background-color: alpha(@sapphire, 0.9);
+    color: @base;
+}
+#network.disconnected {
+    background-color: alpha(@red, 0.9);
+    color: @base;
+}
+
+#pulseaudio {
+    background-color: alpha(@lavender, 0.9);
+    color: @base;
+}
+#pulseaudio.muted {
+    background-color: alpha(@overlay0, 0.9);
+    color: @subtext0;
+}
+
+#power-profiles-daemon {
+    color: @base; /* Default text color, background from general module style or state */
+}
+#power-profiles-daemon.performance {
+    background-color: alpha(@red, 0.9);
+}
+#power-profiles-daemon.balanced {
+    background-color: alpha(@sky, 0.9);
+}
+#power-profiles-daemon.power-saver {
+    background-color: alpha(@green, 0.9);
+}
+
+/* --- HOVER ADAPTATIONS FOR POWER-PROFILES-DAEMON STATES --- */
+#power-profiles-daemon.performance:hover,
+#power-profiles-daemon.balanced:hover,
+#power-profiles-daemon.power-saver:hover {
+    background-color: alpha(@surface1, 0.95);
+    color: @mauve;
+}
+/* Note: The general #power-profiles-daemon:hover rule will cover the base #power-profiles-daemon style hover */
+/* --- END HOVER ADAPTATIONS FOR POWER-PROFILES-DAEMON --- */
+
+
+#custom-power {
+    color: @sky;;
+    background-color: alpha(@surface0, 0.9); /* Hérite de la règle générale maintenant */
+    padding-right: 12px;
+    padding-left: 8px;
+}
+#custom-power:hover {
+    color: @crust;
+    background-color: alpha(@red, 0.95); /* Cohérent avec la transparence de survol */
+}
+
+#tray {
+    background-color: transparent;
+    padding: 2px 6px;
+    margin: 3px 3px;
+}
+
+#tray > .active {
+    padding: 2px 4px;
+    background-color: alpha(@surface0, 0.9); /* Cohérent */
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    color: @text;
+}
+
+#tray > .active:hover {
+    background-color: alpha(@surface1, 0.95); /* Cohérent */
+    color: @mauve;
+    box-shadow: 0 0 3px 1px alpha(@mauve, 0.3);
+}
+
+#tray > .passive {
+    padding: 2px 4px;
+    background-color: alpha(@surface0, 0.9); /* Cohérent */
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    -gtk-icon-effect: dim;
+    color: @subtext1;
+}
+
+#tray > .passive:hover {
+    background-color: alpha(@surface1, 0.95); /* Cohérent */
+    color: @mauve;
+    box-shadow: 0 0 3px 1px alpha(@mauve, 0.3);
+    -gtk-icon-effect: none;
+}
+
+#tray > .needs-attention {
+    padding: 2px 4px;
+    background-color: alpha(@red, 0.9); /* Cohérent */
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    color: @base;
+    -gtk-icon-effect: highlight;
+}
+
+#tray > .needs-attention:hover {
+    background-color: alpha(@maroon, 0.95); /* Cohérent */
+    color: @crust;
+    box-shadow: 0 0 5px 2px alpha(@red, 0.5);
+}
+
+#tray menu {
+    background-color: @base; /* Les menus peuvent rester opaques pour la lisibilité */
+    border: 1px solid @surface0;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+#idle_inhibitor {
+    /* background-color est alpha(@surface0, 0.9) par la règle générale */
+    padding-right: 16px;
+    padding-left: 8px;
+}
+
+#idle_inhibitor.activated {
+    background-color: alpha(@green, 0.9);
+    color: @base;
+}
+
+#keyboard-state {
+    /* background-color est alpha(@surface0, 0.9) par la règle générale */
+    padding: 0 8px;
+    min-width: 0px;
+}
+
+#keyboard-state > label {
+    padding-right: 6px;
+    padding-left: 3px;
+}
+
+#keyboard-state > label.locked {
+    color: @red;
+}
+
+#privacy {
+    background-color: transparent;
+    color: @subtext0;
+    padding: 0 6px;
+    margin: 3px 3px;
+    border-radius: 8px;
+}
+
+#privacy > box > .privacy-item {
+    padding: 0 3px;
+    color: @subtext0;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    font-size: 15px;
+}
+
+#privacy > box > .privacy-item.screenshare {
+    color: @peach;
+    font-weight: bold;
+}
+
+#privacy > box > .privacy-item.audio-out {
+    color: @blue;
+    font-weight: bold;
+}
+
+#privacy > box > .privacy-item.audio-in {
+    color: @red;
+    font-weight: bold;
+}
+
+#privacy:hover {
+    background-color: transparent;
+}
+
+#privacy > box > .privacy-item:hover {
+    color: @mauve;
+}
+
+tooltip {
+    background-color: transparent;
+    border: double 1px transparent;
+    border-radius: 10px;
+    background-image: linear-gradient(@base, @base),
+                      linear-gradient(to bottom, @mauve, @surface1);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+tooltip box {
+    border-radius: 6px;
+}
+
+#taskbar button.active {
+    color: @text;
+    border-bottom: 2px solid @mauve; /* Reste opaque pour la visibilité */
+}

@@ -1,0 +1,6 @@
+// NOTE: Changing this file requires a restart of VS Code.
+{
+	"enable-crash-reporter": true,
+
+	"password-store": "gnome-libsecret" 
+}

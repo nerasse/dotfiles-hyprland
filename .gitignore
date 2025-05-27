@@ -1,0 +1,91 @@
+# Ignore all
+*
+
+# MAINS
+
+# Explicite inclusion 
+!.config/
+.config/*
+!.config/gtk-3.0/
+!.config/gtk-3.0/**
+!.config/gtk-4.0/
+!.config/gtk-4.0/**
+!.config/qt5ct/
+!.config/qt5ct/**
+!.config/qt6ct/
+!.config/qt6ct/**
+!.config/Kvantum/
+!.config/Kvantum/**
+!.config/electron/
+!.config/electron/**
+!.config/hypr/
+!.config/hypr/**
+!.config/waybar/
+!.config/waybar/**
+!.config/kitty/
+!.config/kitty/**
+!.config/wofi/
+!.config/wofi/**
+!.config/mako/
+!.config/mako/**
+!.config/fontconfig/
+!.config/fontconfig/**
+!.config/dconf/
+!.config/dconf/user.d
+!.config/xfce4/
+!.config/xfce4/helpers.rc
+!.config/scripts/
+!.config/scripts/**
+.config/scripts/alttab/preview.png
+!.config/systemd/
+!.config/systemd/**
+!.config/backup-os/
+!.config/backup-os/**
+
+# .xsettingsd
+!.xsettingsd
+
+# starship
+!starship.toml
+
+# oh-my-zsh
+!.zsh/
+!.zsh/**
+
+# vscode
+!.vscode/
+.vscode/*
+!.vscode/argv.json
+
+# vscode-oss
+!.vscode-oss/
+.vscode-oss/*
+!.vscode-oss/argv.json
+
+# applications desktop
+!.local/
+.local/*
+!.local/share/
+.local/share/*
+!.local/share/applications/
+!.local/share/applications/**
+
+# exported env
+!.bashrc
+!.zshrc
+!.profile
+
+# Mendatory
+!.gitignore
+
+
+
+
+# OTHERS
+
+# vesktop
+!.config/vesktop/
+.config/vesktop/*
+!.config/vesktop/settings.json
+!.config/vesktop/settings/
+!.config/vesktop/settings/settings.json

@@ -1,0 +1,6 @@
+[terminal]
+vt = 1
+
+[default_session]
+command = "Hyprland --config /etc/greetd/hyprland-greeter.conf > /dev/null 2>&1"
+user = "greeter"

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=LM Studio
+Exec=/home/neras/Apps/lmstudio.AppImage
+Icon=lmstudio
+Terminal=false
+Type=Application
+Categories=AI;Development;
+Comment=Run local LLMs easily

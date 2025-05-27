@@ -1,0 +1,202 @@
+// -*- mode: jsonc -*-
+{
+    "height": 32,
+    "spacing": 4,
+    "modules-left": [
+        "hyprland/workspaces",
+        "wlr/taskbar",
+        "hyprland/window"
+        
+    ],
+    "modules-center": [
+        "keyboard-state",
+        "clock",
+        "idle_inhibitor"
+    ],
+    "modules-right": [
+        "privacy",
+        "backlight",
+        "pulseaudio",
+        //"network",
+        "cpu",
+        "memory",
+        //"disk",
+        //"temperature",
+        "power-profiles-daemon",
+        "battery",
+        "tray",
+        "custom/power"
+    ],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}",
+        "format-icons": {
+            "1": " ", "2": " ", "3": " ", "4": " ", "5": " ",
+            "urgent": " ", "default": " "
+        },
+        "tooltip": true,
+        "tooltip-format": "Workspace {name}"
+    },
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 50,
+        "rewrite": {
+            "(.*) - neras - VSCodium": "$1 - VSCodium"
+        },
+        "tooltip": true,
+        "tooltip-format": "{title}"
+    },
+    "keyboard-state": {
+        //"numlock": true,
+        "capslock": true,
+        "format": "{icon}", //"{name} {icon}",
+        "format-icons": { "locked": "", "unlocked": "" },
+        "tooltip": true,
+        "tooltip-format": "Caps: {capslock_status}, Num: {numlock_status}"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": { "activated": "", "deactivated": "" },
+        "tooltip": true, "tooltip-format": "Idle Inhibitor: {status}"
+    },
+    "tray": { "icon-size": 25, "spacing": 10 },
+    "clock": {
+        "format": "{:%H:%M:%S}",
+        "format-alt": "{:%d %b %Y}",
+        "tooltip-format": "<big>Day <span color='#c6a0f6'><b>{:%d}</b></span></big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "format": {
+              "months": "<span color='#c6a0f6'><b>{}</b></span>",
+              "today": "<span color='#c6a0f6'><b>{}</b></span>"
+            }
+        },
+        "interval": 1
+    },
+    "cpu": {
+        "format": "{usage}% ", 
+        "tooltip": true,
+        "tooltip-format": "CPU: {usage}% ({avg_frequency} GHz)",
+        "interval": 1
+    },
+    "memory": {
+        "format": "{}% ", "tooltip": true,
+        "tooltip-format": "RAM: {used:0.2f}G/{total:0.2f}G ({percentage}%) || SWAP: {swapUsed:0.2f}G/{swapTotal}G ({swapPercentage}%)",
+        "interval": 1
+    },
+    "disk": {
+	    "interval": 30,
+	    "format": "{specific_free:0.0f}G ",
+        "tooltip-format": "{specific_free:0.2f}G out of {specific_total:0.2f}G available.\nAlternatively {free} out of {total} available",
+	    "unit": "GB",
+        "warning": 80,
+        "critical": 90
+    },
+    "temperature": {
+        "thermal-zone": 0, "critical-threshold": 80,
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""], "tooltip": true,
+        "tooltip-format": "CPU Temperature: {temperatureC}°C"
+    },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": [" ", " ", "󰖨 ", "󰖨 ", "󰖨 "],
+        "tooltip": true, "tooltip-format": "Brightness: {percent}%"
+    },
+    "battery": { 
+        "states": {
+            "good": 90,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}%  ",
+        "format-alt": "{time} {icon}",
+        "format-icons": [" ", " ", " ", " ", " "],
+        "interval": 3
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": { "default": "", "performance": "", "balanced": " ", "power-saver": "󰌪" }
+    },
+    "network": {
+        "interface": "wlp3s0",
+        "family": "ipv4",
+        "format-wifi": "{essid} ({signalStrength}%)  ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} ({ipaddr}) via  ",
+        "format-linked": "{ifname} (No IP)  ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "tooltip": true, "tooltip-format-disconnected": "Network Disconnected"
+    },
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ", "format-source-muted": " ",
+        "format-icons": { "headphone": " ", "hands-free": "󱆏", "headset": " ", "phone": "", "portable": "", "car": " ", "default": [" ", " ", " "] },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-middle": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+        "on-click-right": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%", 
+        "tooltip": true,
+        "tooltip-format": "Out: {volume}%\nIn: {source_volume}%",
+        "max-volume": 150
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 18,
+        "icon-theme": "Numix-Circle",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "hyprctl dispatch killactive",
+        "on-click-right": "hyprctl dispatch togglefloating",
+        "all-outputs": false,
+        "ignore-list": [
+           "kitty"
+        ],
+        "app_ids-mapping": {
+          "firefoxdeveloperedition": "firefox-developer-edition"
+        },
+        "rewrite": {
+            "Firefox Web Browser": "Firefox",
+            "Foot Server": "Terminal"
+        }
+    },
+    "privacy": {
+    	"icon-spacing": 4,
+    	"icon-size": 18,
+    	"transition-duration": 250,
+    	"modules": [
+    		{
+    			"type": "screenshare",
+    			"tooltip": true,
+    			"tooltip-icon-size": 24
+    		},
+    		{
+    			"type": "audio-out",
+    			"tooltip": true,
+    			"tooltip-icon-size": 24
+    		},
+    		{
+    			"type": "audio-in",
+    			"tooltip": true,
+    			"tooltip-icon-size": 24
+    		}
+    	],
+        "interval": 3
+    },
+    "custom/power": {
+        "format" : "", "tooltip": false,
+        "on-click": "$HOME/.config/wofi/scripts/power_menu.sh"
+    }
+}

@@ -1,0 +1,18 @@
+[Unit]
+Description=Set Random Background for Greetd Login Screen
+Wants=local-fs.target
+After=local-fs.target
+
+# Ce service doit s'exécuter avant que greetd ne démarre.
+# Le nom du service greetd peut varier (greetd.service, ou il peut être tiré par display-manager.service).
+# 'display-manager.service' est une cible commune pour les gestionnaires de connexion.
+Before=display-manager.service greetd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/set-random-greetd-bg.sh
+
+[Install]
+WantedBy=multi-user.target
+# Alternativement, si vous voulez le lier plus étroitement au gestionnaire d'affichage :
+# WantedBy=display-manager.service

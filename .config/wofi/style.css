@@ -1,0 +1,90 @@
+/* Catppuccin Macchiato Theme with Mauve Accent for Wofi */
+
+/* Main window with gradient border AND rounded corners */
+window {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 14px;
+    background-color: transparent;
+    color: #cad3f5;
+    border: double 1px transparent;
+    border-radius: 10px;
+    background-image: linear-gradient(rgba(30, 30, 46, 0.85), rgba(30, 30, 46, 0.85)), 
+                      linear-gradient(to bottom, #cba6f7, #494d64);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+/* Input field */
+#input {
+    margin: 8px;
+    padding: 8px 12px;
+    background-color: rgba(24, 24, 37, 0.7);  /* More transparent input */
+    color: #cad3f5;
+    border: 1px solid #45475a;
+    border-radius: 8px;
+}
+
+#input:focus {
+    border: 1px solid #cba6f7;
+}
+
+/* Search results */
+#outer-box {
+    margin: 8px;
+    padding: 0px;
+    background-color: transparent;
+}
+
+#inner-box {
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+}
+
+/* List items */
+#entry {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 2px 0;
+    background-color: rgba(24, 24, 37, 0.5);  /* Transparent list items */
+}
+
+#entry:selected {
+    background-color: rgba(49, 50, 68, 0.9);  /* Slightly less transparent when selected */
+    border-left: 4px solid #cba6f7;
+}
+
+/* Text inside entries */
+#text {
+    margin: 0 8px;
+    color: #cad3f5;
+}
+
+#text:selected {
+    color: #cba6f7;
+}
+
+/* Application icon */
+#img {
+    margin-right: 8px;
+}
+
+/* Scrollbar */
+#scroll {
+    margin: 0 4px;
+}
+
+scrollbar {
+    background-color: rgba(30, 30, 46, 0.5);
+    border-radius: 8px;
+}
+
+scrollbar slider {
+    background-color: rgba(69, 71, 90, 0.7);
+    border-radius: 8px;
+    margin: 2px;
+}
+
+scrollbar slider:hover {
+    background-color: rgba(203, 166, 247, 0.9);
+}

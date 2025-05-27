@@ -1,0 +1,104 @@
+# ~/.config/starship.toml
+
+# --- Configuration Globale du Format de l'Invite ---
+# add_newline = true est la valeur par défaut, donc l'invite sera sur deux lignes.
+
+# Définition des couleurs Catppuccin Macchiato pour référence rapide
+# rosewater = "#f5e0dc"
+# flamingo  = "#f2cdcd"
+# pink      = "#f5c2e7"
+# mauve     = "#cba6f7"  # Utilisé pour git_branch, character success
+# red       = "#f38ba8"  # Utilisé pour git_status conflicts, character error
+# maroon    = "#eba0ac"
+# peach     = "#fab387"  # Utilisé pour git_status base
+# yellow    = "#f9e2af"  # Utilisé pour cmd_duration, jobs, vimcmd_symbol
+# green     = "#a6e3a1"  # Utilisé pour package version
+# teal      = "#94e2d5"
+# sky       = "#89dceb"
+# sapphire  = "#74c7ec"
+# blue      = "#89b4fa"  # Utilisé pour directory
+# lavender  = "#b4befe"
+# text      = "#cdd6f4"
+# subtext1  = "#bac2de"  # Utilisé pour time, username
+# subtext0  = "#a6adc8"
+# overlay0  = "#6c7086"  # Utilisé comme séparateur subtil
+
+# Format principal de l'invite sur deux lignes
+# Modification: $hostname a été retiré
+format = """
+[╭─](bold #6c7086)$username $directory $git_branch $git_status $package
+[╰─](bold #6c7086)$jobs$cmd_duration$character"""
+
+# --- Modules de la Première Ligne ---
+
+[username]
+style_user = "bold #bac2de" # Subtext1 Macchiato
+style_root = "bold #f38ba8" # Rouge pour root
+format = "[$user]($style_user) " # Modification: @ retiré, espace ajouté
+show_always = true # Afficher même si c'est l'utilisateur par défaut
+
+[hostname]
+disabled = true # Modification: Module désactivé
+# style = "bold #bac2de"
+# format = "[$hostname]($style) "
+# ssh_only = false
+# trim_at = "."
+
+[directory]
+truncation_length = 3    # Tronque les répertoires parents, 0 pour chemin complet
+truncate_to_repo = true  # Si dans un repo, préfère tronquer par rapport à la racine du repo
+style = "bold #89b4fa"   # Bleu Macchiato
+format = "in [$path]($style) "
+
+[git_branch]
+symbol = " "
+style = "bold #cba6f7" # Style par défaut pour l'espace final (mauve)
+truncation_length = 15
+truncation_symbol = "…"
+# "on " en couleur texte, <symbole> en subtext0, "<nom_branche>" en mauve
+format = "[on ](bold #cdd6f4)[$symbol](bold #a6adc8)[$branch](bold #cba6f7) "
+
+[git_status]
+style = "bold #fab387"     # Pêche Macchiato
+conflicted = "=#f38ba8"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = '''\$${count}'''
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+format = "[$all_status$ahead_behind]($style) "
+
+[package] # Affiche la version du projet (Node.js, Rust, Python, etc.)
+symbol = "📦 "
+style = "bold #a6e3a1" # Vert Macchiato
+format = "[$symbol$version]($style) "
+display_private = true # Afficher même pour les paquets privés
+
+# --- Modules de la Deuxième Ligne ---
+
+[jobs] # Affiche le nombre de tâches en arrière-plan
+symbol = "⚙️"
+style = "bold #f9e2af" # Jaune Macchiato
+number_threshold = 1 # N'afficher que s'il y a au moins 1 job
+format = "[$symbol ($number)]($style) "
+
+[cmd_duration] # Affiche la durée de la dernière commande
+min_time = 1000 # N'afficher que si la commande a pris plus de 1 seconde (1000 ms)
+style = "italic #f9e2af" # Jaune Macchiato
+format = "took [$duration]($style) "
+show_milliseconds = false # Pour garder l'affichage plus court
+
+[character]
+success_symbol = "[❯](bold #cba6f7)" # Nouveau symbole : ❯ (Mauve Macchiato)
+error_symbol = "[❯](bold #f38ba8)"   # Nouveau symbole : ❯ (Rouge Macchiato)
+vimcmd_symbol = "[❮](bold #f9e2af)"  # Symbole vim correspondant : ❮ (Jaune Macchiato)
+
+# [time]
+# disabled = true # Mettez à false pour l'activer
+# style = "bold #bac2de" # Subtext1 Macchiato
+# format = "at [$time]($style) "
+# use_12hr = false
